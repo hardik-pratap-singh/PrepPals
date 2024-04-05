@@ -11,6 +11,8 @@ app.use(cors());
 
 app.use(express.json());
 
+const useRoutes = require("./routes/User.js")
+app.use("/user" , useRoutes) ; 
 
 let rooms = {};
 let socketroom = {};
