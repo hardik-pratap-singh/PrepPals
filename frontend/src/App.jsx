@@ -8,7 +8,8 @@ function App() {
 
   return (
     <>
-      PayPals
+      {/* PayPals */}
+      <h1 className='text-4xl'>PayPals</h1>
     </>
   )
 }
