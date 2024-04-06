@@ -24,6 +24,8 @@ const RoomPage = () => {
     const [text, setText] = useState('');
     const [peersid, setPeersid] = useState();
 
+    const navigate = useNavigate();
+
 
   useEffect(()=>{
     const handleVisibilityChange = () => {
@@ -191,7 +193,7 @@ const RoomPage = () => {
 
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
-      setpeersid(from);
+      setPeersid(from);
       peer.setLocalDescription(ans);
       console.log("Call Accepted!");
       sendStreams();
@@ -323,12 +325,6 @@ const RoomPage = () => {
 
 
 
-
-
-
-
-
-        </div>
     );
 };
 
