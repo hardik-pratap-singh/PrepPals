@@ -48,6 +48,9 @@ process.on("unhandledRejection", (err, promise) => {
 });
 
 //Socket
+
+let roomsIdList = [];
+
 const io = require("socket.io")(server,{
   pingTimeout: 60000,
   cors:{
@@ -64,6 +67,8 @@ io.on("connection", (socket) => {
     const { email, room } = data;
     emailToSocketIdMap.set(email, socket.id);
     socketidToEmailMap.set(socket.id, email);
+    roomsIdList = data.roomsList;
+    console.log(roomsIdList);
     io.to(room).emit("user:joined", { email, id: socket.id });
     socket.join(room);
     io.to(socket.id).emit("room:join", data);
@@ -85,6 +90,11 @@ io.on("connection", (socket) => {
   socket.on("peer:nego:done", ({ to, ans }) => {
     console.log("peer:nego:done", ans);
     io.to(to).emit("peer:nego:final", { from: socket.id, ans });
+  });
+
+  socket.on("get:rooms", (to) => {
+    console.log("get:rooms", to);
+    io.to(to).emit("send:rooms", { from: socket.id, roomsIdList:roomsIdList });
   });
 });
 
