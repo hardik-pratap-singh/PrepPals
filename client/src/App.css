@@ -1,3 +1,7 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
 * {
   margin: 0;
   padding: 0;
@@ -44,4 +48,8 @@ body {
 #profileDropdownIcon {
   height: 40px;
   width: 40px;
+}
+
+.SmallVideoCall {
+  @apply w-28 h-32 object-cover absolute bottom-4 right-2 z-30 bg-blue-500 cursor-pointer rounded-lg;
 }
