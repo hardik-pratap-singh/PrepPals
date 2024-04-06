@@ -15,6 +15,7 @@ import {
   PasswordResetPage,
 } from "./pages";
 import { NavigationBar } from "./components";
+import RoomPage from "./pages/Room/Room";
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
           path="/passwordReset/:resetToken"
           element={<PasswordResetPage />}
         />
+        <Route path="/room/:roomId" element={<RoomPage />} />
 
         {/* If the user enters an invalid path in the URL it automatically redirects them to the homepage */}
         <Route path="*" element={<Navigate to="/login" replace />} />

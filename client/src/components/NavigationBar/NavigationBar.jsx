@@ -32,13 +32,13 @@ const NavigationBar = () => {
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img
-            alt="Advanced Node Authentication Logo"
+            alt="PrepPals Logo"
             src={IMAGES.logo}
             width="30"
             height="30"
             className="d-inline-block align-top"
           />
-          &nbsp;Advanced Node Authentication
+          &nbsp;PrepPals
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

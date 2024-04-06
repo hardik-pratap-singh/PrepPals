@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AuthState } from "../../context/AuthProvider";
 import { Notify } from "../../utils";
+import LobbyScreen from "../Lobby/Lobby";
 
 const HomePage = () => {
   const [privateMessage, setPrivateMessage] = useState("");
@@ -40,7 +41,7 @@ const HomePage = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <span>{privateMessage}</span>;
+  return <LobbyScreen />
 };
 
 export default HomePage;
