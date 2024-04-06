@@ -27,7 +27,8 @@ const UserSchema = new mongoose.Schema(
       default:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", // Default profile pic
     },
-    level: { type: String, required: true },
+    // level: { type: String, required: true },
+    level: { type: String },
     points: [{ type: Number}],
     reviews : [{type : String}]
   },

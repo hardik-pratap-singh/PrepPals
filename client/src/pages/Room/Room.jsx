@@ -6,7 +6,8 @@ import { MdCallEnd } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AuthState } from "../../context/AuthProvider";
-
+import { Notify } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -21,7 +22,7 @@ const RoomPage = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const { auth } = AuthState();
 
-
+  let navigate = useNavigate() ; 
 
   // const handleRatingChange = (e) => {
   //   e.preventDefault() ; 
@@ -61,8 +62,32 @@ const RoomPage = () => {
     //   event.preventDefault();
     //   console.log("reached here")
     // }
-    const handleClick = () => {
-      console.log("clicked");
+    const handleClick = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/addPointAndReview', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({emailId : auth.email , point : rating , review}) 
+        });
+        const data = await response.json();
+
+
+        if (data.success == true) {
+          navigate("/")
+          return Notify("Submitted Review Successfully !", "success");
+        }
+        else{
+          return Notify("Review Submission Failed !", "warn");
+        }
+        
+        
+        // const data = await response.json();
+        // console.log('Response from server:', data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
 
 
@@ -92,15 +117,16 @@ const RoomPage = () => {
                 <option>5</option>
               </select>
             </div>
+            <br />
 
             <div className="form-group">
               <label htmlFor="review">Reviews ?</label>
               <textarea value={review} onChange={handleReviewChange} name="review" className="form-control" id="review" rows="3"></textarea>
             </div>
-            <button type="submit" onClick={handleClick}>Send</button>
           </form>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={handleClick}>Submit</Button>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
