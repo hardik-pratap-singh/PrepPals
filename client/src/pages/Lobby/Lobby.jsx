@@ -38,6 +38,7 @@ const LobbyScreen = () => {
     }, [socket]);
 
     const handleSubmitForm = useCallback(
+        
         (e) => {
             e.preventDefault();
             // let roomId = room.trim();
@@ -87,7 +88,7 @@ const LobbyScreen = () => {
         return () => {
             socket.off("room:join", handleJoinRoom);
         };
-    }, [socket, handleJoinRoom]);
+    }, [socket, handleJoinRoom , email ]);
 
     return (
 
