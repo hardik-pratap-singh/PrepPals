@@ -30,4 +30,3 @@ PrepPals is a web application that helps users prepare for interviews by connect
 4. Install backend dependencies using `npm install` in the `backend` directory.
 5. Start the frontend server using `npm run dev` in the `frontend` directory.
 6. Start the backend server using `nodemon index.js` in the `backend` directory.
-
