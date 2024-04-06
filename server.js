@@ -2,11 +2,12 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
-
+const cors = require("cors");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 
 const app = express();
+app.use(cors()); 
 app.use(express.json());
 connectDB(); // Connect to databse
 
@@ -37,7 +38,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () =>
+const server = app.listen(5000, () =>
   console.log(`Server running on PORT ${PORT}`)
 );
 
@@ -59,7 +60,7 @@ const io = require("socket.io")(server,{
 });
 
 const emailToSocketIdMap = new Map();
-const socketidToEmailMap = new Map();
+const socketidToEmailMap = new Map(); 
 
 io.on("connection", (socket) => {
   console.log(`Socket Connected`, socket.id);
