@@ -79,6 +79,42 @@ const login = async (req, res, next) => {
   }
 };
 
+const getPointsAndReviews = async (req , res , next) => {
+  try {
+    const {emailId} = req.body ; 
+
+    const data = await User.find({email : emailId});
+    const points = data[0].points ; 
+    const reviews = data[0].reviews ; 
+
+    res.send({success : "true" , data , points , reviews}) ; 
+  } catch (error) {
+      return next(error);
+  }
+}
+
+
+const addPointAndReview = async (req, res, next) => {
+  try {
+    const { emailId, point, review } = req.body;
+
+    const user = await User.findOne({ email: emailId });
+
+    if (!user) {
+      return res.status(404).send({ success: false, message: "User not found" });
+    }
+
+    user.points.push(point);
+    user.reviews.push(review);
+    await user.save();
+
+    res.send({ success: true, user });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+
 const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -178,4 +214,4 @@ const sendAuth = (user, statusCode, res) => {
   });
 };
 
-module.exports = { register, login, forgotPassword, resetPassword };
+module.exports = { register, login, forgotPassword, resetPassword , getPointsAndReviews , addPointAndReview};
