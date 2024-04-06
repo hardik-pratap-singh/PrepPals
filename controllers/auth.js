@@ -103,7 +103,12 @@ const addPointAndReview = async (req, res, next) => {
     if (!user) {
       return res.status(404).send({ success: false, message: "User not found" });
     }
-
+    if(point === null){
+      point = 1 ; 
+    }
+    if(review === ""){
+      review = "You need to really work hard"
+    }
     user.points.push(point);
     user.reviews.push(review);
     await user.save();
