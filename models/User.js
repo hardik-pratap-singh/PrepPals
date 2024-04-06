@@ -19,16 +19,11 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please add a password"],
-      minlength: 8,
+      minlength: 6,
       select: false, // Whenever we query for a user, do we want to return password as well
     },
-    profilePic: {
-      type: String,
-      default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", // Default profile pic
-    },
-    resetPasswordToken: String, // String is shorthand for {type: String}
-    resetPasswordExpire: Date,
+    level: { type: String, required: true },
+    points: [{ type: String}],
   },
   { timestamps: true }
 );
@@ -55,18 +50,18 @@ UserSchema.methods.getSignedToken = function () {
   });
 };
 
-UserSchema.methods.getResetPasswordToken = function () {
-  const resetToken = crypto.randomBytes(20).toString("hex");
+// UserSchema.methods.getResetPasswordToken = function () {
+//   const resetToken = crypto.randomBytes(20).toString("hex");
 
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+//   this.resetPasswordToken = crypto
+//     .createHash("sha256")
+//     .update(resetToken)
+//     .digest("hex");
 
-  this.resetPasswordExpire = Date.now() + 10 * (60 * 1000); // Expires in 10 min
+//   this.resetPasswordExpire = Date.now() + 10 * (60 * 1000); // Expires in 10 min
 
-  return resetToken;
-};
+//   return resetToken;
+// };
 
 const User = mongoose.model("User", UserSchema);
 module.exports = User;

@@ -12,7 +12,8 @@ const RegisterPage = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    userLevel: ""
+    level: "",
+    profilePic : ""
   });
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setimagePreview] = useState(IMAGES.user); // Default image for preview
@@ -114,9 +115,9 @@ const RegisterPage = () => {
     }
 
     // If password is less than 8 characters
-    if (credentials.password.length < 8) {
+    if (credentials.password.length < 6) {
       setIsLoading(false);
-      return Notify("Password must be at least 8 characters", "warn");
+      return Notify("Password must be at least 6 characters", "warn");
     }
 
     try {
@@ -131,7 +132,7 @@ const RegisterPage = () => {
           email: credentials.email,
           password: credentials.password,
           profilePic: credentials.profilePic,
-          userLevel: credentials.userLevel
+          level: credentials.level
         }),
       });
       const data = await response.json();
@@ -230,9 +231,9 @@ const RegisterPage = () => {
     <Form.Label>User Level</Form.Label>
     <Form.Control
       as="select"
-      name="userLevel"
+      name="level"
       tabIndex="5"
-      value={credentials.userLevel}
+      value={credentials.level}
       onChange={(e) => handleCredentials(e)}
     >
       <option value="beginner">Beginner</option>
