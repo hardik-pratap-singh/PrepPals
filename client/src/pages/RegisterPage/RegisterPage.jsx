@@ -14,6 +14,8 @@ const RegisterPage = () => {
     level: "",
     profilePic: ""
   });
+
+  console.log(credentials.level);
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setimagePreview] = useState(IMAGES.user); // Default image for preview
 
@@ -121,7 +123,7 @@ const RegisterPage = () => {
 
     try {
       // Register user
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

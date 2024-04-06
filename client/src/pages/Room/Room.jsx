@@ -23,7 +23,49 @@ const RoomPage = () => {
 
 
 
+  // const handleRatingChange = (e) => {
+  //   e.preventDefault() ; 
+  //   setRating(e.target.value) ; 
+  // }
+  // useEffect(() =>{
+
+  // } , [handle])
+
+
+  // console.log(rating + review) ; 
+
+
+
+
+
   function MyVerticallyCenteredModal(props) {
+
+    // const [rating , setRating] = useState(1) ;
+
+    const [rating, setRating] = useState("");
+    const [review, setReview] = useState("");
+
+    console.log(review);
+    console.log(rating);
+    const handleReviewChange = (e) => {
+      e.preventDefault();
+      setReview(e.target.value);
+    }
+
+    const handleRatingChange = (e) => {
+      e.preventDefault();
+      setRating(e.target.value);
+    }
+
+    // const handleSubmit = (event) => {
+    //   event.preventDefault();
+    //   console.log("reached here")
+    // }
+    const handleClick = () => {
+      console.log("clicked");
+    }
+
+
     return (
       <Modal
         {...props}
@@ -38,11 +80,25 @@ const RoomPage = () => {
         </Modal.Header>
         <Modal.Body>
           <h4>{peerEmailId}</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+          <br />
+          <form>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlSelect1">Rating ?</label>
+              <select name="rating" className="form-control" value={rating} onChange={handleRatingChange} id="exampleFormControlSelect1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="review">Reviews ?</label>
+              <textarea value={review} onChange={handleReviewChange} name="review" className="form-control" id="review" rows="3"></textarea>
+            </div>
+            <button type="submit" onClick={handleClick}>Send</button>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -50,7 +106,7 @@ const RoomPage = () => {
       </Modal>
     );
   }
-  
+
 
 
 
@@ -81,12 +137,12 @@ const RoomPage = () => {
         video: true,
       });
       setMyStream(stream);
-      setstreamButt(1);          
+      setstreamButt(1);
       console.log(`Incoming Call`, from, offer);
       const ans = await peer.getAnswer(offer);
-      socket.emit("get-peer-email", {myemail: auth.email,  peersid: from});
-      socket.on("get-peer-email-server",(peereid)=>{
-            setpeerEmailId(peereid);
+      socket.emit("get-peer-email", { myemail: auth.email, peersid: from });
+      socket.on("get-peer-email-server", (peereid) => {
+        setpeerEmailId(peereid);
       })
       socket.emit("call:accepted", { to: from, ans });
     },
@@ -167,60 +223,60 @@ const RoomPage = () => {
   return (
     <div>
       <h4>{remoteSocketId ? <h6>Connected</h6> : "No one in room"}</h4>
-      {(caller===0 && streamButt===1) && <button className="btn btn-primary" onClick={sendStreams}>Send Stream</button>}
-      {(callButt===1 && caller===1 && remoteSocketId) && <button className="btn btn-primary" onClick={handleCallUser}>CALL</button>}
+      {(caller === 0 && streamButt === 1) && <button className="btn btn-primary" onClick={sendStreams}>Send Stream</button>}
+      {(callButt === 1 && caller === 1 && remoteSocketId) && <button className="btn btn-primary" onClick={handleCallUser}>CALL</button>}
 
-<div>
-<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', backgroundColor: '#121212' }}>
-  {remoteStream && (
-    <div style={{ flex: 1, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#262626' }}>
-      <h3 style={{ fontSize: '16px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}></h3>
-      <ReactPlayer
-        playing
-        muted
-        height="400px"
-        width="455px"
-        url={remoteStream}
-        style={{ borderRadius: '10px' }}
-      />
-    </div>
-  )}
-  {myStream && (
-    <div style={{ flex: 0.5, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#262626' }}>
-      <h3 style={{ fontSize: '14px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}>You</h3>
-      <ReactPlayer
-        playing
-        muted={true} // Assuming you want your own stream muted by default
-        height="200px"
-        width="150px"
-        url={myStream}
-        style={{ borderRadius: '10px' }}
-      />
-    </div>
-  )}
-  {myStream && (
-    <div style={{ flex: 0.5, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: 'rgb(242 242 242)' }}>
-      <h3 style={{ fontSize: '14px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}>Editor</h3>
-      {/* <ReactPlayer
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', backgroundColor: '#121212' }}>
+          {remoteStream && (
+            <div style={{ flex: 1, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#262626' }}>
+              <h3 style={{ fontSize: '16px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}></h3>
+              <ReactPlayer
+                playing
+                muted
+                height="400px"
+                width="455px"
+                url={remoteStream}
+                style={{ borderRadius: '10px' }}
+              />
+            </div>
+          )}
+          {myStream && (
+            <div style={{ flex: 0.5, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#262626' }}>
+              <h3 style={{ fontSize: '14px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}>You</h3>
+              <ReactPlayer
+                playing
+                muted={true} // Assuming you want your own stream muted by default
+                height="200px"
+                width="150px"
+                url={myStream}
+                style={{ borderRadius: '10px' }}
+              />
+            </div>
+          )}
+          {myStream && (
+            <div style={{ flex: 0.5, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: 'rgb(242 242 242)' }}>
+              <h3 style={{ fontSize: '14px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}>Editor</h3>
+              {/* <ReactPlayer
         playing
         muted={true} // Assuming you want your own stream muted by default
         height="500px"
         width="250px"
         url={myStream}
         style={{ borderRadius: '10px' }}
-      /> */}  
-      <div style={{ height: 497, width: 200, borderRadius: '10px' }}>
+      /> */}
+              <div style={{ height: 497, width: 200, borderRadius: '10px' }}>
+
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="EndCall" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#121212', marginTop: '-105px' }}>
+          <MdCallEnd onClick={() => setModalShow(true)} style={{ color: 'white', backgroundColor: 'red', fontSize: '2rem', border: 'solid black 2px', borderRadius: '20px', width: '90px', height: '40px' }} />
+          <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
+        </div>
 
       </div>
-    </div>
-  )}
-</div>
- <div className="EndCall" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#121212', marginTop: '-105px' }}>
-  <MdCallEnd onClick={() => setModalShow(true)} style={{ color: 'white', backgroundColor:'red' ,fontSize: '2rem', border: 'solid black 2px', borderRadius: '20px', width: '90px', height: '40px' }}/>
-  <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)}/>
- </div>
-
-</div>
 
 
 

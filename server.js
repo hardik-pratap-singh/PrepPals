@@ -2,11 +2,12 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
-
+const cors = require("cors");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 
 const app = express();
+app.use(cors()); 
 app.use(express.json());
 connectDB(); // Connect to databse
 
