@@ -17,7 +17,7 @@ router.route("/login").post(login);
 router.route("/forgotPassword").post(forgotPassword);
 router.route("/resetPassword/:resetToken").put(resetPassword);
 router.route("/getPointsAndReviews").post(getPointsAndReviews)
-router.route("/addPointsAndReviews").post(addPointAndReview)
+router.route("/addPointAndReview").post(addPointAndReview)
 // router.route("/getPointsAndReviews").post(protect , getPointsAndReviews)
 
 
