@@ -98,6 +98,10 @@ io.on("connection", (socket) => {
     io.to(to).emit("peer:nego:final", { from: socket.id, ans });
   });
 
+  socket.on("tab-changed-warning", ({peersid})=>{
+    io.to(peersid).emit("peer-changed-tab");
+  })
+
   socket.on("get:rooms", (to) => {
     console.log("get:rooms", to);
     io.to(to).emit("send:rooms", { from: socket.id, roomsIdList:roomsIdList });

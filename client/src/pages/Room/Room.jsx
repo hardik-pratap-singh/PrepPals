@@ -6,6 +6,7 @@ import { MdCallEnd } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AuthState } from "../../context/AuthProvider";
+import { Notify } from "../../utils";
 
 
 const RoomPage = () => {
@@ -17,9 +18,28 @@ const RoomPage = () => {
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
   const [peerEmailId, setpeerEmailId] = useState();
-  const [myEmailId, setmyEmailId] = useState();
+  const [peersid, setpeersid] = useState();
   const [modalShow, setModalShow] = React.useState(false);
   const { auth } = AuthState();
+
+
+  useEffect(()=>{
+    const handleVisibilityChange = () => {
+      socket.on("peer-changed-tab",()=>{
+        console.log("got")
+        Notify(peerEmailId+" has changed the Tab", "error");
+      })
+        if (!(document.visibilityState === "visible")) {
+          // io.to(mysid).emit("get-peer-email-server", peermail)
+          console.log("emitted")
+        socket.emit("tab-changed-warning",{peersid:peersid});
+        }
+      };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    // return () => {
+    //   document.removeEventListener("visibilitychange", handleVisibilityChange);
+    // };
+  },[])
 
 
 
@@ -84,6 +104,7 @@ const RoomPage = () => {
       setstreamButt(1);          
       console.log(`Incoming Call`, from, offer);
       const ans = await peer.getAnswer(offer);
+      setpeersid(from);
       socket.emit("get-peer-email", {myemail: auth.email,  peersid: from});
       socket.on("get-peer-email-server",(peereid)=>{
             setpeerEmailId(peereid);
@@ -102,6 +123,7 @@ const RoomPage = () => {
 
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
+      setpeersid(from);
       peer.setLocalDescription(ans);
       console.log("Call Accepted!");
       sendStreams();
