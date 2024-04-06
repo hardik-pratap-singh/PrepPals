@@ -9,7 +9,7 @@ const sendEmail = require("../utils/sendEmail");
 // @access          Public
 const register = async (req, res, next) => {
   try {
-    const { name, email, password, profilePic } = req.body;
+    const { name, email, password, level , profilePic } = req.body;
     // Check if any of them is undefined
     if (!name || !email || !password) {
       return next(
@@ -32,6 +32,7 @@ const register = async (req, res, next) => {
             name,
             email,
             password,
+            level
           }
         : {
             name,
@@ -39,6 +40,11 @@ const register = async (req, res, next) => {
             password,
             profilePic,
           }
+
+      // name, 
+      // email,
+      // password,
+      // level
     );
 
     return sendAuth(user, 201, res);
@@ -173,6 +179,7 @@ const sendAuth = (user, statusCode, res) => {
     name: user.name,
     email: user.email,
     profilePic: user.profilePic,
+    level: user.level,
     token: user.getSignedToken(),
     expires_at: new Date(Date.now() + process.env.JWT_EXPIRE * 60 * 60 * 1000),
   });
