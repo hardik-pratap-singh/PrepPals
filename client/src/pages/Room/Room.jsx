@@ -121,7 +121,7 @@ const RoomPage = () => {
   return (
     <div>
       {/* <h1>Room Page</h1> */}
-      {/* <h4>{remoteSocketId ? <h5>Connected</h5> : "No one in room"}</h4> */}
+      <h4>{remoteSocketId ? <h6>Connected</h6> : "No one in room"}</h4>
       {(caller===0 && streamButt===1) && <button className="btn btn-primary" onClick={sendStreams}>Send Stream</button>}
       {(callButt===1 && caller===1 && remoteSocketId) && <button className="btn btn-primary" onClick={handleCallUser}>CALL</button>}
 
