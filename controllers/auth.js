@@ -9,7 +9,7 @@ const sendEmail = require("../utils/sendEmail");
 // @access          Public
 const register = async (req, res, next) => {
   try {
-    const { name, email, password, level , profilePic } = req.body;
+    const { name, email, password,  profilePic , level } = req.body;
     // Check if any of them is undefined
     if (!name || !email || !password) {
       return next(
@@ -39,12 +39,8 @@ const register = async (req, res, next) => {
             email,
             password,
             profilePic,
+            level
           }
-
-      // name, 
-      // email,
-      // password,
-      // level
     );
 
     return sendAuth(user, 201, res);
@@ -83,9 +79,6 @@ const login = async (req, res, next) => {
   }
 };
 
-// @description     Forgot password
-// @route           POST /api/auth/forgotPassword
-// @access          Public
 const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;

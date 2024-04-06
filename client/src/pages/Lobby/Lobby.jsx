@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../context/SocketProvider"
-import { Container, Row, Col, Button } from 'react-bootstrap';
+// import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AuthState } from "../../context/AuthProvider";
-import { set } from "mongoose";
+import { Container, Row, Col, Button } from 'react-bootstrap';
+
 
 const LobbyScreen = () => {
     const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ const LobbyScreen = () => {
     }, [socket]);
 
     const handleSubmitForm = useCallback(
-        
+
         (e) => {
             e.preventDefault();
             // let roomId = room.trim();
@@ -88,61 +89,52 @@ const LobbyScreen = () => {
         return () => {
             socket.off("room:join", handleJoinRoom);
         };
-    }, [socket, handleJoinRoom , email ]);
+    }, [socket, handleJoinRoom, email]);
 
     return (
-
-        // <div className="card m-auto" style={{ width: '18rem' }}>
-        //     <div className="card-body">
-        //         <h5 className="card-title">Lobby</h5>
-        //         <form onSubmit={handleSubmitForm}>
-        //             <div className="form-group">
-        //                 <label for="exampleInputEmail1">Email address</label>
-        //                 <input type="email" className="form-control" id="email" value={email} aria-describedby="emailHelp" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
-        //                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-        //             </div>
-        //             <div className="form-group">
-        //                 <label for="exampleInputEmail1">Room Id</label>
-        //                 <input type="text" className="form-control" id="room" value={room} aria-describedby="emailHelp" placeholder="Enter RoomId" onChange={(e) => setRoom(e.target.value)} />
-        //             </div>
-
-        //             <button type="submit" className="btn btn-primary">Start your Interview</button>
-        //         </form>
-        //     </div>
-        // </div>
-
         <div style={{ width: "100%", display: "flex", margin: "auto" }}>
 
             <Container fluid>
                 <Row className="justify-content-md-center">
                     <Col md={10} className="text-left">
                         <br /><br /><br />
-                        <h1>Welcome to PrepPals !</h1>
+                        <h1 style={{ fontSize: "3rem" }}>Welcome to PrepPals !</h1>
                         <br />
-                        <p>Unlock Your Potential, Ace Your Interviews</p>
+                        <p style={{ fontSize: "2rem" }}>Unlock Your Potential, Ace Your Interviews</p>
+                        <br />
+                        <p style={{ fontSize: "1.5rem" }}>
+                            Are you ready to land that dream job ? Your ultimate destination for mastering the art of interview preparation.
+                        </p>
+
                         <p>
-                            Are you ready to land that dream job? Welcome to InterviewPrepMaster, your ultimate destination for mastering the art of interview preparation.
+                            <form onSubmit={handleSubmitForm}>
+                                <br />
+                                <br />
+                                <button className="btn btn-primary" style={{ fontSize: "1.5rem" }}>Join Interview</button>
+                            </form>
                         </p>
                     </Col>
                 </Row>
-                <div className="card m-auto" style={{ width: '18rem' }}>
+
+                {/* Earlier Code */}
+                {/* <div className="card " style={{ width: '18rem' }}>
                     <div className="card-body">
                         <h5 className="card-title">Lobby</h5>
                         <form onSubmit={handleSubmitForm}>
-                            {/* <div className="form-group">
+                            <div className="form-group">
                                 <label for="exampleInputEmail1">Room Id</label>
                                 <input type="text" className="form-control" id="room" value={room} aria-describedby="emailHelp" placeholder="Enter RoomId" onChange={(e) => setRoom(e.target.value)} />
-                            </div> */}
+                            </div>
 
                             <button className="btn btn-primary">Join</button>
                         </form>
                     </div>
-                </div>
+                </div> */}
+
+
             </Container>
 
         </div>
-
-
     );
 };
 

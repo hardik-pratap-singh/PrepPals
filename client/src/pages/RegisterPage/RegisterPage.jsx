@@ -13,7 +13,7 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
     level: "",
-    profilePic : ""
+    profilePic: ""
   });
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setimagePreview] = useState(IMAGES.user); // Default image for preview
@@ -154,68 +154,67 @@ const RegisterPage = () => {
   };
 
   return (
-    <Form className="auth__form" onSubmit={registerHandler}>
-      <h2 className="text-center mb-5">Create new account</h2>
 
-      {/* <Form.Group className="mb-3 d-flex justify-content-center">
-        <Image
-          id="profilePicUpload"
-          src={imagePreview}
-          alt="Profile image"
-          draggable="false"
-          roundedCircle
-        />
-      </Form.Group> */}
+    <div style={{ display: "flex", width: "100%", margin: "auto" }} >
 
-      <Form.Group className="mb-3" controlId="name">
-        <Form.Label>Full Name</Form.Label>
-        <Form.Control
-          type="text"
-          name="name"
-          tabIndex="1"
-          placeholder="Full name"
-          value={credentials.name}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
+      <div style={{ width: "50%"  , marginTop : "10px "}} >
+        <img width="900px" src={require('../../assets/bg.png')} alt="img" />
+      </div>
 
-      <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          tabIndex="2"
-          placeholder="Enter email"
-          value={credentials.email}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
+      <div style={{ margin: "auto" }}>
 
-      <Form.Group className="mb-3" controlId="password">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          tabIndex="3"
-          placeholder="Password"
-          value={credentials.password}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
+        <Form className="auth__form" onSubmit={registerHandler}>
+          <h2 className="text-center mb-3">Create new account</h2>
 
-      <Form.Group className="mb-3" controlId="confirmPassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control
-          type="password"
-          name="confirmPassword"
-          tabIndex="4"
-          placeholder="Confirm password"
-          value={credentials.confirmPassword}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              tabIndex="1"
+              placeholder="Full name"
+              value={credentials.name}
+              onChange={(e) => handleCredentials(e)}
+            />
+          </Form.Group>
 
-      {/* <Form.Group controlId="profilePic" className="mb-3">
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              tabIndex="2"
+              placeholder="Enter email"
+              value={credentials.email}
+              onChange={(e) => handleCredentials(e)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              tabIndex="3"
+              placeholder="Password"
+              value={credentials.password}
+              onChange={(e) => handleCredentials(e)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="confirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="confirmPassword"
+              tabIndex="4"
+              placeholder="Confirm password"
+              value={credentials.confirmPassword}
+              onChange={(e) => handleCredentials(e)}
+            />
+          </Form.Group>
+
+          {/* <Form.Group controlId="profilePic" className="mb-3">
         <Form.Label>Upload profile picture</Form.Label>
         <Form.Control
           type="file"
@@ -227,44 +226,48 @@ const RegisterPage = () => {
         />
       </Form.Group> */}
 
-  <Form.Group className="mb-3" controlId="userLevel">
-    <Form.Label>User Level</Form.Label>
-    <Form.Control
-      as="select"
-      name="level"
-      tabIndex="5"
-      value={credentials.level}
-      onChange={(e) => handleCredentials(e)}
-    >
-      <option value="beginner">Beginner</option>
-      <option value="intermediate">Intermediate</option>
-      <option value="expert">Expert</option>
-    </Form.Control>
-  </Form.Group>
+          <Form.Group className="mb-3" controlId="userLevel">
+            <Form.Label>User Level</Form.Label>
+            <Form.Control
+              as="select"
+              name="level"
+              tabIndex="5"
+              value={credentials.level}
+              onChange={(e) => handleCredentials(e)}
+            >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="expert">Expert</option>
+            </Form.Control>
+          </Form.Group>
 
-      <Button
-        tabIndex="6"
-        variant="success"
-        type="submit"
-        className="mb-3"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <Spinner animation="border" role="status" size="sm" />
-        ) : (
-          "Create Account"
-        )}
-      </Button>
+          <Button
+            tabIndex="6"
+            variant="success"
+            type="submit"
+            className="mb-3"
+            style={{backgroundColor : "#930eb4"}}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "Create Account"
+            )}
+          </Button>
 
-      <Form.Group className="mb-3 text-center" controlId="register">
-        <span>
-          Already have an account?&nbsp;
-          <Link to="/login" tabIndex="6" className="text-decoration-none">
-            Log in
-          </Link>
-        </span>
-      </Form.Group>
-    </Form>
+          <Form.Group className="mb-3 text-center" controlId="register">
+            <span>
+              Already have an account?&nbsp;
+              <Link to="/login" tabIndex="6" className="text-decoration-none">
+                Log in
+              </Link>
+            </span>
+          </Form.Group>
+        </Form>
+
+      </div>
+    </div>
   );
 };
 

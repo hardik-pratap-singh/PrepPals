@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.min.css"; // CSS for "react-toastify"
 
 // Private route
@@ -11,9 +10,9 @@ import {
   HomePage,
   LoginPage,
   RegisterPage,
-  ForgotPasswordPage,
-  PasswordResetPage,
 } from "./pages";
+
+import Dashboard from './pages/Dashboard/Dashboard'
 import { NavigationBar } from "./components";
 import RoomPage from "./pages/Room/Room";
 
@@ -29,15 +28,10 @@ const App = () => {
 
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
-        <Route
-          path="/passwordReset/:resetToken"
-          element={<PasswordResetPage />}
-        />
         <Route path="/room/:roomId" element={<RoomPage />} />
-
-        {/* If the user enters an invalid path in the URL it automatically redirects them to the homepage */}
+        
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
 

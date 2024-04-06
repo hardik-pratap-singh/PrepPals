@@ -27,18 +27,15 @@ const NavigationBar = () => {
     return navigate("/login");
   };
 
+  const handleDashboard = () => {
+    navigate("/dashboard");
+  }
+
   return (
     <Navbar collapseOnSelect expand="md" variant="dark" id="nav">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <img
-            alt="PrepPals Logo"
-            src={IMAGES.logo}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />
-          &nbsp;PrepPals
+          <h2>PrepPals</h2>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -66,14 +63,17 @@ const NavigationBar = () => {
               />
 
               <Dropdown.Divider />
-
+              <Dropdown.Item as="button" onClick={handleDashboard}>
+                Dashboard
+              </Dropdown.Item>
+              <Dropdown.Divider />
               <Dropdown.Item as="button" onClick={logoutHandler}>
                 Log out
               </Dropdown.Item>
             </DropdownButton>
           ) : (
             <Nav.Item>
-              <button
+              {/* <button
                 className="nav-button me-2"
                 onClick={() => navigate("/login")}
               >
@@ -84,7 +84,7 @@ const NavigationBar = () => {
                 onClick={() => navigate("/register")}
               >
                 Register
-              </button>
+              </button> */}
             </Nav.Item>
           )}
         </Navbar.Collapse>

@@ -22,6 +22,11 @@ const UserSchema = new mongoose.Schema(
       minlength: 6,
       select: false, // Whenever we query for a user, do we want to return password as well
     },
+    profilePic: {
+      type: String,
+      default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", // Default profile pic
+    },
     level: { type: String, required: true },
     points: [{ type: String}],
   },

@@ -60,33 +60,42 @@ const LoginPage = () => {
   };
 
   return (
-    <Form className="auth__form" onSubmit={loginHandler}>
-      <h3 className="text-center mb-5">Login to Your Account</h3>
-      <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          tabIndex="1"
-          placeholder="Enter email"
-          value={credentials.email}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
+    <div style={{ display: "flex" , width: "100%" , margin : "auto"}} >
 
-      <Form.Group controlId="password">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          tabIndex="2"
-          placeholder="Password"
-          value={credentials.password}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
-    <br /><br />
-      {/* <Form.Group className="mb-3 mt-1 text-center" controlId="register">
+      <div style={{ width: "50%" , marginTop : "10px"}} > 
+        <img width="900px" height="100%" src={require('../../assets/bg.png')} alt="img" />
+      </div>
+
+      <div style={{margin : "auto"}}>
+
+
+        <Form className="auth__form" onSubmit={loginHandler}>
+          <h3 className="text-center mb-3">Login to Your Account</h3>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              tabIndex="1"
+              placeholder="Enter email"
+              value={credentials.email}
+              onChange={(e) => handleCredentials(e)}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              tabIndex="2"
+              placeholder="Password"
+              value={credentials.password}
+              onChange={(e) => handleCredentials(e)}
+            />
+          </Form.Group>
+          <br /><br />
+          {/* <Form.Group className="mb-3 mt-1 text-center" controlId="register">
         <Link
           to="/forgotPassword"
           tabIndex="4"
@@ -96,21 +105,22 @@ const LoginPage = () => {
         </Link>
       </Form.Group> */}
 
-      <Button
-        variant="success"
-        type="submit"
-        tabIndex="3"
-        className="mb-3"
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <Spinner animation="border" role="status" size="sm" />
-        ) : (
-          "Continue"
-        )}
-      </Button>
+          <Button
+            variant="success"
+            type="submit"
+            tabIndex="3"
+            className="mb-3"
+            style={{backgroundColor : "#930eb4"}}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "Continue"
+            )}
+          </Button>
 
-      {/* <Button
+          {/* <Button
         variant="danger"
         type="button"
         tabIndex="4"
@@ -123,15 +133,19 @@ const LoginPage = () => {
         Get Guest User Credentials
       </Button> */}
 
-      <Form.Group className="mb-3 text-center" controlId="register">
-        <span>
-          Don't have an account?&nbsp;
-          <Link to="/register" tabIndex="5" className="text-decoration-none">
-            Register now
-          </Link>
-        </span>
-      </Form.Group>
-    </Form>
+          <Form.Group className="mb-3 text-center" controlId="register">
+            <span>
+              Don't have an account?&nbsp;
+              <Link to="/register" tabIndex="5" className="text-decoration-none">
+                Register now
+              </Link>
+            </span>
+          </Form.Group>
+        </Form>
+
+      </div>
+    </div>
+
   );
 };
 
