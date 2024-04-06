@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Spinner, Image } from "react-bootstrap";
-
 import { AuthState } from "../../context/AuthProvider";
 import { Notify } from "../../utils";
 import IMAGES from "../../assets";
