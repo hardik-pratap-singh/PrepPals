@@ -2,6 +2,11 @@ import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../../service/peer"
 import { useSocket } from "../../context/SocketProvider"
+import { MdCallEnd } from "react-icons/md";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { AuthState } from "../../context/AuthProvider";
+
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -11,10 +16,47 @@ const RoomPage = () => {
   const [caller, setCaller] = useState(0);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+  const [peerEmailId, setpeerEmailId] = useState();
+  const [myEmailId, setmyEmailId] = useState();
+  const [modalShow, setModalShow] = React.useState(false);
+  const { auth } = AuthState();
+
+
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Modal heading
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>{peerEmailId}</h4>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+            consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+  
+
 
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
+    setpeerEmailId(email)
     setCaller(1);
     setcallButt(1);
     setRemoteSocketId(id);
@@ -42,6 +84,10 @@ const RoomPage = () => {
       setstreamButt(1);          
       console.log(`Incoming Call`, from, offer);
       const ans = await peer.getAnswer(offer);
+      socket.emit("get-peer-email", {myemail: auth.email,  peersid: from});
+      socket.on("get-peer-email-server",(peereid)=>{
+            setpeerEmailId(peereid);
+      })
       socket.emit("call:accepted", { to: from, ans });
     },
     [socket]
@@ -120,41 +166,12 @@ const RoomPage = () => {
 
   return (
     <div>
-      {/* <h1>Room Page</h1> */}
       <h4>{remoteSocketId ? <h6>Connected</h6> : "No one in room"}</h4>
       {(caller===0 && streamButt===1) && <button className="btn btn-primary" onClick={sendStreams}>Send Stream</button>}
       {(callButt===1 && caller===1 && remoteSocketId) && <button className="btn btn-primary" onClick={handleCallUser}>CALL</button>}
 
-      {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-  {remoteStream && (
-    <div style={{ flex: 1, margin: '0 10px' }}>
-      <h3 style={{ fontSize: '18px', marginBottom: '10px', textAlign: 'center' }}>Remote Stream</h3>
-      <ReactPlayer
-        playing
-        muted
-        height="400px"
-        width="300px"
-        url={remoteStream}
-      />
-    </div>
-  )}
-  {myStream && (
-    <div style={{ flex: 0.5, margin: '0 10px' }}>
-      <h3 style={{ fontSize: '14px', marginBottom: '10px', textAlign: 'center' }}>My Stream</h3>
-      <ReactPlayer
-        playing
-        muted
-        height="200px"
-        width="150px"
-        url={myStream}
-      />
-    </div>
-  )}
-</div> */}
-
-
-
-<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#121212' }}>
+<div>
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', backgroundColor: '#121212' }}>
   {remoteStream && (
     <div style={{ flex: 1, margin: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '10px', overflow: 'hidden', backgroundColor: '#262626' }}>
       <h3 style={{ fontSize: '16px', marginBottom: '5px', textAlign: 'center', color: '#fff' }}></h3>
@@ -197,6 +214,12 @@ const RoomPage = () => {
       </div>
     </div>
   )}
+</div>
+ <div className="EndCall" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#121212', marginTop: '-105px' }}>
+  <MdCallEnd onClick={() => setModalShow(true)} style={{ color: 'white', backgroundColor:'red' ,fontSize: '2rem', border: 'solid black 2px', borderRadius: '20px', width: '90px', height: '40px' }}/>
+  <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)}/>
+ </div>
+
 </div>
 
 

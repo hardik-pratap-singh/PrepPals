@@ -74,6 +74,12 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("room:join", data);
   });
 
+  socket.on("get-peer-email", ({myemail,peersid})=>{
+    let peermail = socketidToEmailMap.get(peersid);
+    let mysid = emailToSocketIdMap.get(myemail);
+    io.to(mysid).emit("get-peer-email-server", peermail);
+  })
+
   socket.on("user:call", ({ to, offer }) => {
     io.to(to).emit("incomming:call", { from: socket.id, offer });
   });
