@@ -4,7 +4,7 @@ import { useSocket } from "../../context/SocketProvider"
 // import { Container, Row, Col, Button } from 'react-bootstrap';
 import { AuthState } from "../../context/AuthProvider";
 import { Container, Row, Col, Button } from 'react-bootstrap';
-
+import { Notify } from "../../utils";
 
 const LobbyScreen = () => {
     const [email, setEmail] = useState("");
@@ -16,7 +16,9 @@ const LobbyScreen = () => {
     const [roomsList, setRoomsList] = useState([]);
 
     const socket = useSocket();
-    const navigate = useNavigate();
+    const navigate = useNavigate();  
+    
+    
 
     useEffect(() => {
         console.log(socket)
