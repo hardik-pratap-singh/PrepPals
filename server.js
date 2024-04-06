@@ -61,6 +61,8 @@ const io = require("socket.io")(server,{
 const emailToSocketIdMap = new Map();
 const socketidToEmailMap = new Map();
 
+let editorText = '';
+
 io.on("connection", (socket) => {
   console.log(`Socket Connected`, socket.id);
   socket.on("room:join", (data) => {
@@ -101,6 +103,13 @@ io.on("connection", (socket) => {
   socket.on("get:rooms", (to) => {
     console.log("get:rooms", to);
     io.to(to).emit("send:rooms", { from: socket.id, roomsIdList:roomsIdList });
+  });
+
+  socket.emit('editor:text', editorText);
+  socket.on("editor:change", ({text,to}) => {
+    editorText = text;
+    console.log("------------------------------")
+    io.to(to).emit("editor:text", editorText );
   });
 });
 
