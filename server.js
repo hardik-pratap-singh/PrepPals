@@ -59,7 +59,7 @@ const io = require("socket.io")(server,{
 });
 
 const emailToSocketIdMap = new Map();
-const socketidToEmailMap = new Map();
+const socketidToEmailMap = new Map(); 
 
 io.on("connection", (socket) => {
   console.log(`Socket Connected`, socket.id);
