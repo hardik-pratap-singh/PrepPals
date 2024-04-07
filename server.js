@@ -38,7 +38,7 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(5000, () =>
+const server = app.listen(PORT, () =>
   console.log(`Server running on PORT ${PORT}`)
 );
 
@@ -55,7 +55,7 @@ let roomsIdList = [];
 const io = require("socket.io")(server,{
   pingTimeout: 60000,
   cors:{
-    origin:'http://localhost:3000'
+    origin:`${process.env.APP_BASE_URL}`
   }
 });
 

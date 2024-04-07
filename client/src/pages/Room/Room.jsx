@@ -72,7 +72,7 @@ const RoomPage = () => {
     // }
     const handleClick = async () => {
       try {
-        const response = await fetch('api/auth/addPointAndReview', {
+        const response = await fetch('http://localhost:5000/api/auth/addPointAndReview', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ const RoomPage = () => {
 
 
         if (data.success == true) {
-          navigate("/")
+          navigate("/dashboard")
           return Notify("Submitted Review Successfully !", "success");
         }
         else{
