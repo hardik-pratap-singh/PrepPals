@@ -123,7 +123,7 @@ const RegisterPage = () => {
 
     try {
       // Register user
-      const response = await fetch("api/auth/register", {
+      const response = await fetch(`${REACT_APP_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
