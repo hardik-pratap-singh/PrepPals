@@ -14,6 +14,8 @@ PrepPals is a web application that helps users prepare for interviews by connect
   Implement a robust rating and feedback system to ensure accountability and maintain high-quality interactions, fostering trust and credibility within the platform community.
 - ### AI-Assisted Interview Questioning
   Integrate AI capabilities to streamline the interview process by providing tailored question suggestions, enabling interviewers to conduct more effective and structured interviews.
+- ### Collaborative Text Editor
+  This feature enhances user engagement and facilitates seamless collaboration among peers, allowing them to collectively brainstorm, edit, and refine documents, thereby elevating the efficiency and effectiveness of interview preparation sessions.
 
 ## Technologies Used
 
