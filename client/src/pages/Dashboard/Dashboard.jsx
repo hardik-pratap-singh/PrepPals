@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const response = await fetch(`${REACT_APP_BASE_URL}/api/auth/getPointsAndReviews`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/getPointsAndReviews`, {
         method : "POST" , 
         headers: {
           'Content-Type': 'application/json'

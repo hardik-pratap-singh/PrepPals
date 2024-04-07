@@ -31,7 +31,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch(`${REACT_APP_BASE_URL}/api/auth/login`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
