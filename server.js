@@ -105,16 +105,16 @@ io.on("connection", (socket) => {
     io.to(peersid).emit("peer-changed-tab");
   })
 
-  socket.on("get:rooms", (to) => {
-    console.log("get:rooms", to);
-    io.to(to).emit("send:rooms", { from: socket.id, roomsIdList:roomsIdList });
-  });
+  // socket.on("get:rooms", (to) => {
+  //   console.log("get:rooms", to);
+  //   io.to(to).emit("send:rooms", { from: socket.id, roomsIdList:roomsIdList });
+  // });
 
-  socket.emit('editor:text', editorText);
-  socket.on("editor:change", ({text,to}) => {
-    editorText = text;
-    console.log("------------------------------")
-    io.to(to).emit("editor:text", editorText );
-  });
+  // socket.emit('editor:text', editorText);
+  // socket.on("editor:change", ({text,to}) => {
+  //   editorText = text;
+  //   console.log("------------------------------")
+  //   io.to(to).emit("editor:text", editorText );
+  // });
 });
 

@@ -43,7 +43,7 @@ const RoomPage = () => {
     // return () => {
     //   document.removeEventListener("visibilitychange", handleVisibilityChange);
     // };
-  },[])
+  },[socket])
 
 
 
